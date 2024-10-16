@@ -9,6 +9,7 @@ import {
   PointElement,
   Tooltip,
   Legend,
+  scales,
 } from "chart.js";
 
 ChartJS.register(
@@ -31,6 +32,11 @@ const LineChart = () => {
   const options = {
     plugins: {
       legend: true,
+    },
+    scales: {
+      y: {
+        max: 100,
+      },
     },
   };
   return (

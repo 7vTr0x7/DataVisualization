@@ -9,6 +9,7 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  scales,
 } from "chart.js";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -22,6 +23,9 @@ const BarChart = () => {
 
   const options = {
     indexAxis: "y",
+    scales: {
+      x: { max: 100 },
+    },
   };
 
   return (
