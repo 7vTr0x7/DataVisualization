@@ -3,6 +3,7 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import React from "react";
 import BarChart from "../components/BarChart";
 import Filters from "../components/Filters";
+import LineChart from "../components/LineChart";
 
 Chart.register(zoomPlugin);
 
@@ -57,8 +58,9 @@ const Charts = () => {
     <div className="flex items-center justify-center mt-10 ">
       <div>
         <Filters />
-        <div className="mt-5">
+        <div className="flex gap-5 mt-5">
           <BarChart />
+          <LineChart />
         </div>
       </div>
     </div>
