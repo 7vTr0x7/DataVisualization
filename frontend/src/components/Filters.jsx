@@ -70,30 +70,3 @@ const Filters = () => {
 };
 
 export default Filters;
-
-{
-  /* <div>
-  <label htmlFor="startDate" className="font-semibold px-3">
-    Start:
-  </label>
-  <input
-    type="date"
-    className="border border-black font-semibold px-3 rounded-sm"
-    value={startDate}
-    onChange={(e) => setStartDate(e.target.value)}
-  />
-</div>; */
-}
-{
-  /* <div>
-<label htmlFor="endDate" className="font-semibold px-3">
-  End:
-</label>
-<input
-  type="date"
-  className="border border-black font-semibold px-3 rounded-sm"
-  value={endDate}
-  onChange={(e) => setEndDate(e.target.value)}
-/>
-</div> */
-}
