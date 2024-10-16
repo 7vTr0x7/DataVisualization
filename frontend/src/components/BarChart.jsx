@@ -3,29 +3,28 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 
 import {
-  Chart as ChartJS,
   BarElement,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
   Tooltip,
-  Legend,
-  scales,
 } from "chart.js";
+import { barData } from "../utils/constants";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const BarChart = () => {
   const data = {
-    labels: ["A", "B", "C", "D", "E", "F"],
-    datasets: [{ label: "Title", data: [10, 20, 30, 40, 50, 60] }],
+    labels: barData.map((data) => data.category).reverse(),
+    datasets: [
+      { label: "Title", data: barData.map((data) => data.value).reverse() },
+    ],
     backgroundColor: "#61DBFB",
   };
 
   const options = {
     indexAxis: "y",
-    scales: {
-      x: { max: 100 },
-    },
   };
 
   return (

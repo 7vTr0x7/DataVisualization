@@ -16,10 +16,10 @@ const data = {
 };
 
 const Filters = () => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [age, setAge] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState("");
 
   useEffect(() => {
     setStartDate(data.sday);

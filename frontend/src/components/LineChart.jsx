@@ -11,6 +11,7 @@ import {
   Legend,
   scales,
 } from "chart.js";
+import { lineData } from "../utils/constants";
 
 ChartJS.register(
   LineElement,
@@ -21,10 +22,14 @@ ChartJS.register(
   Legend
 );
 
+const maxLine = lineData.reduce((acc, curr) =>
+  acc.value < curr.value ? curr : acc
+);
+
 const LineChart = () => {
   const data = {
-    labels: ["A", "B", "C", "D", "E", "F"],
-    datasets: [{ label: "Title", data: [10, 5, 20, 10, 50, 30] }],
+    labels: lineData.map((data) => data.date.slice(0, 10)),
+    datasets: [{ label: "Title", data: lineData.map((data) => data.value) }],
     backgroundColor: "aqua",
     borderColor: "black",
     fill: true,
@@ -35,7 +40,7 @@ const LineChart = () => {
     },
     scales: {
       y: {
-        max: 100,
+        max: maxLine.value + 100,
       },
     },
   };
