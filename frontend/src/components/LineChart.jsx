@@ -21,14 +21,14 @@ ChartJS.register(
   Legend
 );
 
-const maxLine = lineData.reduce((acc, curr) =>
+const maxLine = lineData().reduce((acc, curr) =>
   acc.value < curr.value ? curr : acc
 );
 
 const LineChart = () => {
   const data = {
-    labels: lineData.map((data) => data.date.slice(0, 10)),
-    datasets: [{ label: "Title", data: lineData.map((data) => data.value) }],
+    labels: lineData().map((data) => data.date.slice(0, 10)),
+    datasets: [{ label: "Title", data: lineData().map((data) => data.value) }],
     backgroundColor: "aqua",
     borderColor: "black",
     fill: true,
