@@ -34,7 +34,7 @@ const LineChart = () => {
     },
   };
   return (
-    <div>
+    <div className="h-[500px] w-[500px]">
       <Line data={data} options={options} />
     </div>
   );

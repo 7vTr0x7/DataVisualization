@@ -25,7 +25,7 @@ const BarChart = () => {
   };
 
   return (
-    <div>
+    <div className="h-[500px] w-[500px]">
       <Bar data={data} options={options} />
     </div>
   );
