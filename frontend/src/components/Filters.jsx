@@ -27,7 +27,7 @@ const Filters = () => {
   }, [data]);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 justify-center">
       <div>
         <select
           className="border border-black font-semibold px-3 rounded-sm"

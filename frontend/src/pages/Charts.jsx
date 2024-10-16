@@ -55,10 +55,10 @@ const data = [
 
 const Charts = () => {
   return (
-    <div className="flex items-center justify-center mt-10 ">
+    <div className="flex  justify-center mt-10 h-[50vh]">
       <div>
         <Filters />
-        <div className="flex gap-5 mt-5">
+        <div className="flex w-full  gap-5 mt-5">
           <BarChart />
           <LineChart />
         </div>
