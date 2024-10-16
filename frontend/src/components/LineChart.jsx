@@ -4,12 +4,11 @@ import { Line } from "react-chartjs-2";
 import {
   CategoryScale,
   Chart as ChartJS,
+  Legend,
   LineElement,
   LinearScale,
   PointElement,
   Tooltip,
-  Legend,
-  scales,
 } from "chart.js";
 import { lineData } from "../utils/constants";
 
