@@ -54,10 +54,12 @@ const data = [
 
 const Charts = () => {
   return (
-    <div className="flex justify-center mt-10 ">
+    <div className="flex items-center justify-center mt-10 ">
       <div>
         <Filters />
-        <BarChart />
+        <div className="mt-5">
+          <BarChart />
+        </div>
       </div>
     </div>
   );

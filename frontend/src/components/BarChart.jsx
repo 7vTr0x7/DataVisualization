@@ -15,7 +15,7 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const BarChart = () => {
   const data = {
-    labels: ["a", "b", "c", "d", "e", "f"],
+    labels: ["A", "B", "C", "D", "E", "F"],
     datasets: [{ label: "Title", data: [10, 20, 30, 40, 50, 60] }],
     backgroundColor: "#61DBFB",
   };
