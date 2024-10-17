@@ -2,36 +2,27 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const data = {
-  sday: "2022-04-10",
-  eday: "2022-10-10",
-  age: "15-25",
-  gender: "Male",
-  a: 550,
-  b: 92,
-  c: 413,
-  d: 988,
-  e: 709,
-  f: 175,
-};
-
-const Filters = () => {
+const Filters = ({ paramsData }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
 
   useEffect(() => {
-    setStartDate(data.sday);
-    setEndDate(data.eday);
-  }, [data]);
+    if (paramsData) {
+      setStartDate(paramsData.startDate);
+      setEndDate(paramsData.endDate);
+      setGender(paramsData.gender);
+    }
+    setAge(paramsData.age);
+  }, [paramsData]);
 
   return (
     <div className="flex gap-4 justify-center">
       <div>
         <select
           className="border border-black font-semibold px-3 rounded-sm"
-          disabled={data}
+          disabled={paramsData}
           value={gender}
           onChange={(e) => setGender(e.target.value)}>
           <option value="male">Male</option>
@@ -43,14 +34,14 @@ const Filters = () => {
           value={age}
           onChange={(e) => setAge(e.target.value)}
           className="border border-black font-semibold px-3 rounded-sm"
-          disabled={data}>
+          disabled={paramsData}>
           <option value="15-25">15-25</option>
           <option value=">25">{">25"}</option>
         </select>
       </div>
       <div>
         <DatePicker
-          disabled={data}
+          disabled={paramsData}
           className="border text-black border-black font-semibold px-3 rounded-sm"
           selected={startDate}
           onChange={(dates) => {

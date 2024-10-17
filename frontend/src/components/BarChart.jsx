@@ -16,17 +16,17 @@ import { changeBar } from "../redux/slices/barSlice";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const BarChart = () => {
+const BarChart = ({ paramsData }) => {
   const dispatch = useDispatch();
 
   const data = {
-    labels: barData()
+    labels: barData(paramsData)
       .map((data) => data.category)
       .reverse(),
     datasets: [
       {
         label: "Title",
-        data: barData()
+        data: barData(paramsData)
           .map((data) => data.value)
           .reverse(),
       },
