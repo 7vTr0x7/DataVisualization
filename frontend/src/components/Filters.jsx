@@ -69,7 +69,6 @@ const Filters = ({ paramsData }) => {
   const resetHandler = () => {
     navigate("/");
     window.location.reload();
-    toast.success("Reset successful");
   };
 
   return (

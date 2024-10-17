@@ -33,19 +33,30 @@ const Charts = () => {
   }, [age, gender, startDate, endDate, filters]);
 
   const memoizedParamsData = useMemo(() => {
-    return paramsData?.age ? paramsData : filters;
-  }, [paramsData, filters]);
+    return paramsData?.age ? paramsData : {};
+  }, [paramsData]);
 
   return (
     <div className="flex justify-center mt-10 h-auto px-4">
       <div className="w-full max-w-7xl">
-        <Filters paramsData={memoizedParamsData} />
+        <Filters
+          paramsData={memoizedParamsData ? memoizedParamsData : filters}
+        />
         <div className="flex flex-col lg:flex-row lg:gap-5 gap-4 mt-5">
+          {/* Wrap each chart with a responsive div */}
           <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
-            <BarChart paramsData={memoizedParamsData} />
+            <BarChart
+              paramsData={
+                memoizedParamsData?.age ? memoizedParamsData : filters
+              }
+            />
           </div>
           <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
-            <LineChart paramsData={memoizedParamsData} />
+            <LineChart
+              paramsData={
+                memoizedParamsData?.age ? memoizedParamsData : filters
+              }
+            />
           </div>
         </div>
       </div>
