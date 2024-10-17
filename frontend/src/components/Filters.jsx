@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeFilters } from "../redux/slices/filtersSlice";
+import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -68,7 +68,15 @@ const Filters = ({ paramsData }) => {
 
   const resetHandler = () => {
     navigate("/");
-    window.location.reload();
+
+    setAge("");
+    setEndDate(null);
+    setStartDate(null);
+    setGender("");
+
+    dispatch(resetFilters());
+
+    toast.success("Reset successful");
   };
 
   return (

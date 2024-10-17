@@ -20,8 +20,14 @@ const filtersSlice = createSlice({
         filters: serializedFilters,
       };
     },
+    resetFilters: (state, action) => {
+      return {
+        ...state,
+        filters: {},
+      };
+    },
   },
 });
 
-export const { changeFilters } = filtersSlice.actions;
+export const { changeFilters, resetFilters } = filtersSlice.actions;
 export default filtersSlice.reducer;
