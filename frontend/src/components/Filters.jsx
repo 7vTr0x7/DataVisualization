@@ -5,14 +5,18 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeFilters } from "../redux/slices/filtersSlice";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const Filters = ({ paramsData }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [gender, setGender] = useState("male");
-  const [age, setAge] = useState("15-25");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const url = window.location.href;
 
   useEffect(() => {
     if (!paramsData?.age && age && gender && startDate && endDate) {
@@ -46,7 +50,26 @@ const Filters = ({ paramsData }) => {
     if (startDate) searchParams.set("startDate", startDate.toISOString());
     if (endDate) searchParams.set("endDate", endDate.toISOString());
 
+    toast.success("URL generated");
+
     navigate(`?${searchParams.toString()}`);
+  };
+
+  const copyUrlHandler = () => {
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        toast.success("URL copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy URL: ", err);
+      });
+  };
+
+  const resetHandler = () => {
+    navigate("/");
+    window.location.reload();
+    toast.success("Reset successful");
   };
 
   return (
@@ -91,12 +114,29 @@ const Filters = ({ paramsData }) => {
         />
       </div>
       <div>
+        {url.includes("age") ? (
+          <p
+            onClick={copyUrlHandler}
+            className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
+            Copy URL
+          </p>
+        ) : (
+          <p
+            onClick={urlGenerator}
+            className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
+            Generate URL
+          </p>
+        )}
+      </div>
+      <div>
         <p
-          onClick={urlGenerator}
+          onClick={resetHandler}
           className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
-          Generate URL
+          Reset
         </p>
       </div>
+
+      <Toaster />
     </div>
   );
 };
