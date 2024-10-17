@@ -10,6 +10,9 @@ import {
   PointElement,
   Tooltip,
 } from "chart.js";
+
+import zoomPlugin from "chartjs-plugin-zoom";
+
 import { lineData } from "../utils/constants";
 import { useSelector } from "react-redux";
 
@@ -19,7 +22,8 @@ ChartJS.register(
   LinearScale,
   PointElement,
   Tooltip,
-  Legend
+  Legend,
+  zoomPlugin,
 );
 
 const LineChart = () => {
@@ -41,6 +45,21 @@ const LineChart = () => {
   const options = {
     plugins: {
       legend: true,
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "xy",
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "xy",
+        },
+      },
     },
     scales: {
       y: {
