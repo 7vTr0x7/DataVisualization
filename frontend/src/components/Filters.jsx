@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 const Filters = ({ paramsData }) => {
   const [startDate, setStartDate] = useState("");
@@ -8,13 +9,30 @@ const Filters = ({ paramsData }) => {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
 
+  const navigate = useNavigate();
+
+  const updateSearchParams = () => {
+    const searchParams = new URLSearchParams();
+
+    if (startDate) searchParams.set("startDate", startDate.toISOString());
+    if (endDate) searchParams.set("endDate", endDate.toISOString());
+    if (gender) searchParams.set("gender", gender);
+    if (age) searchParams.set("age", age);
+
+    navigate(`?${searchParams.toString()}`);
+  };
+
+  useEffect(() => {
+    updateSearchParams();
+  }, [startDate, endDate, gender, age]);
+
   useEffect(() => {
     if (paramsData) {
-      setStartDate(paramsData.startDate);
-      setEndDate(paramsData.endDate);
-      setGender(paramsData.gender);
+      setStartDate(paramsData?.startDate);
+      setEndDate(paramsData?.endDate);
+      setGender(paramsData?.gender);
     }
-    setAge(paramsData.age);
+    setAge(paramsData?.age);
   }, [paramsData]);
 
   return (

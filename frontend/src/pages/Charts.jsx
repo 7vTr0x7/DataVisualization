@@ -26,7 +26,7 @@ const Charts = () => {
   return (
     <div className="flex  justify-center mt-10 h-[50vh]">
       <div>
-        <Filters paramsData={paramsData} />
+        <Filters />
         <div className="flex w-full  gap-5 mt-5 lg:flex md-flex-col sm-flex-col">
           <BarChart paramsData={paramsData} />
           <LineChart />
