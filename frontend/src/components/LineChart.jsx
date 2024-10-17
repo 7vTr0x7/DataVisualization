@@ -74,7 +74,7 @@ const LineChart = ({ paramsData }) => {
     },
   };
   return (
-    <div className="h-[500px] w-[500px]">
+    <div className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
       <Line data={data} options={options} />
     </div>
   );

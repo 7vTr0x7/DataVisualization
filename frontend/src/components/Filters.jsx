@@ -50,10 +50,10 @@ const Filters = ({ paramsData }) => {
   };
 
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div>
         <select
-          className="border border-black font-semibold px-3 rounded-sm"
+          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
           disabled={paramsData?.gender}
           value={gender}
           onChange={(e) => setGender(e.target.value)}>
@@ -66,18 +66,17 @@ const Filters = ({ paramsData }) => {
         <select
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          className="border border-black font-semibold px-3 rounded-sm"
+          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
           disabled={paramsData?.age}>
           <option value="">Age</option>
-
           <option value="15-25">15-25</option>
           <option value=">25">{">25"}</option>
         </select>
       </div>
-      <div>
+      <div className="  w-full sm:w-auto text-center">
         <DatePicker
           disabled={paramsData?.startDate}
-          className="border text-black border-black font-semibold px-3 rounded-sm"
+          className="border text-black border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
           selected={startDate}
           onChange={(dates) => {
             const [start, end] = dates;
@@ -94,7 +93,7 @@ const Filters = ({ paramsData }) => {
       <div>
         <p
           onClick={urlGenerator}
-          className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer">
+          className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
           Generate URL
         </p>
       </div>

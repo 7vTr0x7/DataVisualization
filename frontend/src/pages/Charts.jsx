@@ -35,19 +35,28 @@ const Charts = () => {
   const memoizedParamsData = useMemo(() => {
     return paramsData?.age ? paramsData : {};
   }, [paramsData]);
+
   return (
-    <div className="flex justify-center mt-10 h-[50vh]">
-      <div>
+    <div className="flex justify-center mt-10 h-auto px-4">
+      <div className="w-full max-w-7xl">
         <Filters
           paramsData={memoizedParamsData ? memoizedParamsData : filters}
         />
-        <div className="flex w-full gap-5 mt-5 lg:flex md-flex-col sm-flex-col">
-          <BarChart
-            paramsData={memoizedParamsData?.age ? memoizedParamsData : filters}
-          />
-          <LineChart
-            paramsData={memoizedParamsData?.age ? memoizedParamsData : filters}
-          />
+        <div className="flex flex-col lg:flex-row lg:gap-5 gap-4 mt-5">
+          <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
+            <BarChart
+              paramsData={
+                memoizedParamsData?.age ? memoizedParamsData : filters
+              }
+            />
+          </div>
+          <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
+            <LineChart
+              paramsData={
+                memoizedParamsData?.age ? memoizedParamsData : filters
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
