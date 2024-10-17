@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { lineData } from "../utils/constants";
+import { useSelector } from "react-redux";
 
 ChartJS.register(
   LineElement,
@@ -21,14 +22,18 @@ ChartJS.register(
   Legend
 );
 
-const maxLine = lineData().reduce((acc, curr) =>
-  acc.value < curr.value ? curr : acc
-);
-
 const LineChart = () => {
+  const bar = useSelector((state) => state.bar.bar);
+
+  const maxLine = lineData(bar).reduce((acc, curr) =>
+    acc.value < curr.value ? curr : acc
+  );
+
   const data = {
-    labels: lineData().map((data) => data.date.slice(0, 10)),
-    datasets: [{ label: "Title", data: lineData().map((data) => data.value) }],
+    labels: lineData(bar).map((data) => data.date.slice(0, 10)),
+    datasets: [
+      { label: "Title", data: lineData(bar).map((data) => data.value) },
+    ],
     backgroundColor: "aqua",
     borderColor: "black",
     fill: true,

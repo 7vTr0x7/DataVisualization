@@ -11,7 +11,5 @@ export const barData = () =>
 
 export const selectedBar = (index) => categories.reverse()[index];
 
-const selected = "a";
-
-export const lineData = () =>
-  data.slice(0, 10).map((line) => ({ value: line[selected], date: line.day }));
+export const lineData = (bar) =>
+  data.slice(0, 10).map((line) => ({ value: line[bar], date: line.day }));

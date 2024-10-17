@@ -11,10 +11,14 @@ import {
   Tooltip,
 } from "chart.js";
 import { barData, selectedBar } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { changeBar } from "../redux/slices/barSlice";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const BarChart = () => {
+  const dispatch = useDispatch();
+
   const data = {
     labels: barData()
       .map((data) => data.category)
@@ -40,7 +44,7 @@ const BarChart = () => {
     if (elements.length > 0) {
       const index = elements[0].index;
       const selected = selectedBar(index);
-      console.log(selected);
+      dispatch(changeBar(selected));
     }
   };
 
