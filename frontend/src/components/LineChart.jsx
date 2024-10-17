@@ -23,20 +23,26 @@ ChartJS.register(
   PointElement,
   Tooltip,
   Legend,
-  zoomPlugin,
+  zoomPlugin
 );
 
-const LineChart = () => {
+const LineChart = ({ paramsData }) => {
   const bar = useSelector((state) => state.bar.bar);
 
-  const maxLine = lineData(bar).reduce((acc, curr) =>
-    acc.value < curr.value ? curr : acc
-  );
+  const array = lineData(bar, paramsData);
+  console.log(array);
+
+  const maxLine =
+    array.length > 0 &&
+    array.reduce((acc, curr) => (acc.value < curr.value ? curr : acc));
 
   const data = {
-    labels: lineData(bar).map((data) => data.date.slice(0, 10)),
+    labels: array.map((data) => data?.date?.slice(0, 10)),
     datasets: [
-      { label: "Title", data: lineData(bar).map((data) => data.value) },
+      {
+        label: "Title",
+        data: array.map((data) => data?.value),
+      },
     ],
     backgroundColor: "aqua",
     borderColor: "black",
