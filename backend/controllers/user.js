@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config({ path: "D:/DataVisualization/backend/.env" });
 
-import { VisualizationUser } from "../models/user.model";
+import { VisualizationUser } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
