@@ -46,3 +46,10 @@ export const login = async (req, res) => {
 export const getUser = async (req, res) => {
   res.status(200).json({ success: true, user: req.user });
 };
+
+export const logout = (req, res) => {
+  res
+    .status(201)
+    .cookie("token", "", { expires: new Date(Date.now()) })
+    .json({ success: true });
+};
