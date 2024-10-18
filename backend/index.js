@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import { initializeDatabase } from "./db/db.connection.js";
 import userRouter from "./routes/user.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const corsOption = {
   origin: "*",
