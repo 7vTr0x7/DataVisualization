@@ -11,5 +11,5 @@ export const sendCookie = (user, res, message, statusCode) => {
       sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
       secure: process.env.NODE_ENV === "Development" ? false : true,
     })
-    .json({ success: true, message });
+    .json({ success: true, message, token });
 };
