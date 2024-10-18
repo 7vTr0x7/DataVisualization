@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { initializeDatabase } from "./db/db.connection.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 
@@ -11,6 +12,8 @@ const corsOption = {
   credentials: true,
 };
 app.use(cors(corsOption));
+
+app.use("/api/user", userRouter);
 
 initializeDatabase();
 
