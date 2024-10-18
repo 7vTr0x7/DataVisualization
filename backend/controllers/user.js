@@ -3,7 +3,7 @@ config({ path: "D:/DataVisualization/backend/.env" });
 
 import { VisualizationUser } from "../models/user.model.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { sendCookie } from "../utils/features.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -20,15 +20,7 @@ export const registerUser = async (req, res) => {
 
     user = await VisualizationUser.create({ email, password: hashedPassword });
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-
-    return res
-      .status(200)
-      .cookie("token", token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24,
-      })
-      .json({ success: true, message: "Registered Successfully" });
+    sendCookie(user, res, "Registered Successfully", 201);
   } catch (error) {
     res.status(500).json(`failed to register ${error}`);
   }
