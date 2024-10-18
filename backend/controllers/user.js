@@ -16,7 +16,7 @@ export const registerUser = async (req, res) => {
         .status(400)
         .json({ success: false, message: "User already exists" });
 
-    const hashedPassword = bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     user = await VisualizationUser.create({ email, password: hashedPassword });
 
