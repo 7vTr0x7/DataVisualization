@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { VisualizationUser } from "../models/user.model.js";
 
-export const isAuthenticated = async (res, req, next) => {
-  if (!req?.cookies) {
+export const isAuthenticated = async (req, res, next) => {
+  if (!req.cookies) {
     return res.status(500).json({ success: false, message: "Login First" });
   }
   const { token } = req?.cookies;
