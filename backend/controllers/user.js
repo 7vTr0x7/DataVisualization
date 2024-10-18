@@ -42,3 +42,7 @@ export const login = async (req, res) => {
 
   sendCookie(user, res, "Login Successfully", 201);
 };
+
+export const getUser = async (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
+};
