@@ -3,6 +3,8 @@ import cors from "cors";
 import { initializeDatabase } from "./db/db.connection.js";
 import userRouter from "./routes/user.js";
 import cookieParser from "cookie-parser";
+import { config } from "dotenv";
+config({ path: "D:/DataVisualization/backend/.env" });
 
 const app = express();
 
