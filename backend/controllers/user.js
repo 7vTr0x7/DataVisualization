@@ -25,3 +25,23 @@ export const registerUser = async (req, res) => {
     res.status(500).json(`failed to register ${error}`);
   }
 };
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  let user = await VisualizationUser.findOne({ email }).select("+password");
+
+  if (!user)
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid Email or Password" });
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch)
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid Email or Password" });
+
+  sendCookie(user, res, "Login Successfully", 201);
+};
