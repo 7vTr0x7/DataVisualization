@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: true
+        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
       })
       .json({ success: true, message: "Registered Successfully" });
