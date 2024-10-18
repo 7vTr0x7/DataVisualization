@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { config } from "dotenv";
 
-config({ path: "D:/DataVisualization/backend/.env " });
+config({ path: "D:/DataVisualization/backend/.env" });
 
 const mongoUrl = process.env.MONGODB;
 export const initializeDatabase = async () => {
@@ -11,6 +11,6 @@ export const initializeDatabase = async () => {
       console.log("Connected to MongoDB");
     }
   } catch (error) {
-    console.log("Failed to connect to mongoDB");
+    console.log("Failed to connect to mongoDB", error);
   }
 };
