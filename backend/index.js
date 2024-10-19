@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOption = {
-  origin: ["http://localhost:5173", "https://charts-v1.vercel.app/login"],
+  origin: "https://charts-v1.vercel.app/login",
   credentials: true,
 };
 app.use(cors(corsOption));
