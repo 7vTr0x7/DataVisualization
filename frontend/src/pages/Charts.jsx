@@ -36,12 +36,6 @@ const Charts = () => {
     return paramsData?.age ? paramsData : {};
   }, [paramsData]);
 
-  useEffect(() => {
-    if (!filters?.age) {
-      setParamsData({});
-    }
-  }, [filters?.age]);
-
   return (
     <div className="flex justify-center mt-10 h-auto px-4">
       <div className="w-full max-w-7xl">
