@@ -11,7 +11,6 @@ const Login = () => {
   const location = useLocation();
   const from =
     location.state?.from?.pathname + location.state?.from?.search || "/";
-  console.log(from);
 
   const registerHandler = async (e) => {
     e.preventDefault();
