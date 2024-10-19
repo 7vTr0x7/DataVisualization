@@ -98,13 +98,11 @@ const Filters = ({ paramsData }) => {
   return (
     <div className="w-full">
       <div className="sm:hidden flex justify-end mb-4">
-        {/* Hamburger Icon for Small Screens */}
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl">
           <FaBars />
         </button>
       </div>
 
-      {/* Conditionally show the filters based on screen size and menu state */}
       <div
         className={`flex flex-col sm:flex-row gap-4 justify-center items-center ${
           isMenuOpen ? "" : "hidden sm:flex"
@@ -112,6 +110,7 @@ const Filters = ({ paramsData }) => {
         <div>
           <select
             required
+            disabled={paramsData?.gender}
             className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
             value={gender}
             onChange={(e) => setGender(e.target.value)}>
@@ -124,6 +123,7 @@ const Filters = ({ paramsData }) => {
         </div>
         <div>
           <select
+            disabled={paramsData?.age}
             required
             value={age}
             onChange={(e) => setAge(e.target.value)}
@@ -139,6 +139,7 @@ const Filters = ({ paramsData }) => {
           <input
             required
             type="date"
+            disabled={paramsData?.startDate}
             value={startDate ? startDate.format("YYYY-MM-DD") : ""}
             onChange={(e) => setStartDate(dayjs(e.target.value))}
             className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
@@ -146,6 +147,7 @@ const Filters = ({ paramsData }) => {
           <input
             required
             type="date"
+            disabled={paramsData?.endDate}
             value={endDate ? endDate.format("YYYY-MM-DD") : ""}
             onChange={(e) => setEndDate(dayjs(e.target.value))}
             className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
