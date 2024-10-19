@@ -17,6 +17,7 @@ const Charts = () => {
 
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters.filters);
+  const reset = useSelector((state) => state.filters.reset);
 
   const age = searchParams.get("age");
   const gender = searchParams.get("gender");
@@ -63,10 +64,15 @@ const Charts = () => {
       setLoading(false); // Stop loading if error occurs
     }
   };
-
   useEffect(() => {
     fetchChartData();
   }, []);
+
+  useEffect(() => {
+    if (reset) {
+      setParamsData({});
+    }
+  }, [reset]);
 
   return (
     <div className="flex justify-center mt-10 h-auto px-4">

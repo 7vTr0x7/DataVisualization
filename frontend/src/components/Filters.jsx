@@ -71,7 +71,6 @@ const Filters = ({ paramsData }) => {
     setGender("");
 
     dispatch(resetFilters());
-    dispatch(resetData());
     navigate("/");
 
     toast.success("Reset successful");
