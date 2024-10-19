@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
+import {
+  changeFilters,
+  reset,
+  resetFilters,
+} from "../redux/slices/filtersSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { FaBars } from "react-icons/fa"; // Import the hamburger icon
 import { resetData } from "../redux/slices/dataSlice";
@@ -71,6 +75,8 @@ const Filters = ({ paramsData }) => {
     setGender("");
 
     dispatch(resetFilters());
+    dispatch(reset(true));
+
     navigate("/");
 
     toast.success("Reset successful");

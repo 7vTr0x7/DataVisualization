@@ -7,6 +7,7 @@ import LineChart from "../components/LineChart";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../redux/slices/dataSlice";
+import { reset } from "../redux/slices/filtersSlice";
 
 Chart.register(zoomPlugin);
 
@@ -14,10 +15,11 @@ const Charts = () => {
   const [paramsData, setParamsData] = useState({});
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true); // Loading state
+  const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters.filters);
-  const reset = useSelector((state) => state.filters.reset);
+  const resetValue = useSelector((state) => state.filters.reset);
 
   const age = searchParams.get("age");
   const gender = searchParams.get("gender");
@@ -58,6 +60,8 @@ const Charts = () => {
       if (data.data) {
         dispatch(addData(data.data));
       }
+      dispatch(reset(false));
+
       setLoading(false); // Stop loading after data is fetched
     } catch (error) {
       console.log(error);
@@ -69,8 +73,10 @@ const Charts = () => {
   }, []);
 
   useEffect(() => {
-    setParamsData({});
-  }, [reset]);
+    if (resetValue) {
+      setParamsData({});
+    }
+  }, [resetValue]);
 
   return (
     <div className="flex justify-center mt-10 h-auto px-4">

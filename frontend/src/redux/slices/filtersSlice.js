@@ -25,11 +25,16 @@ const filtersSlice = createSlice({
       return {
         ...state,
         filters: {},
-        reset: !state.reset,
+      };
+    },
+    reset: (state, action) => {
+      return {
+        ...state,
+        reset: action.payload,
       };
     },
   },
 });
 
-export const { changeFilters, resetFilters } = filtersSlice.actions;
+export const { changeFilters, resetFilters, reset } = filtersSlice.actions;
 export default filtersSlice.reducer;
