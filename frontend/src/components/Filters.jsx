@@ -43,16 +43,14 @@ const Filters = ({ paramsData }) => {
 
   const urlGenerator = () => {
     const searchParams = new URLSearchParams();
-    if (url.includes("age")) {
-      if (age) searchParams.set("age", age);
-      if (gender) searchParams.set("gender", gender);
-      if (startDate) searchParams.set("startDate", startDate.toISOString());
-      if (endDate) searchParams.set("endDate", endDate.toISOString());
+    if (age) searchParams.set("age", age);
+    if (gender) searchParams.set("gender", gender);
+    if (startDate) searchParams.set("startDate", startDate.toISOString());
+    if (endDate) searchParams.set("endDate", endDate.toISOString());
 
-      toast.success("URL generated");
+    toast.success("URL generated");
 
-      navigate(`?${searchParams.toString()}`);
-    }
+    navigate(`?${searchParams.toString()}`);
   };
 
   const copyUrlHandler = () => {
