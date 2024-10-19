@@ -84,22 +84,14 @@ const Filters = ({ paramsData }) => {
 
   const logoutHandler = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/user/login`, {
+      const res = await fetch(`http://localhost:4000/api/user/logout`, {
         method: "POST",
-        credentials: "include",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
-      if (data.token) {
-        toast.success(data.message);
-        localStorage.removeItem("token");
-        navigate("/login");
-      }
+      localStorage.removeItem("token");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -170,6 +162,13 @@ const Filters = ({ paramsData }) => {
           onClick={resetHandler}
           className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
           Reset
+        </p>
+      </div>
+      <div>
+        <p
+          onClick={logoutHandler}
+          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+          Logout
         </p>
       </div>
 
