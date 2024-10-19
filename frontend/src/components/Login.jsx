@@ -1,27 +1,61 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
 
+  const navigate = useNavigate();
+
   const registerHandler = async () => {
-    try {
-      const res = await fetch(`http://localhost:4000/api/user/register`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    if (email && password) {
+      try {
+        const res = await fetch(`http://localhost:4000/api/user/register`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      toast.success(data.message);
-    } catch (error) {
-      console.log(error);
+        if (data.token) {
+          toast.success(data.message);
+          localStorage.setItem("token", data.token);
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const loginHandler = async () => {
+    if (email && password) {
+      try {
+        const res = await fetch(`http://localhost:4000/api/user/login`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (data.token) {
+          toast.success(data.message);
+          localStorage.setItem("token", data.token);
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -51,11 +85,15 @@ const Login = () => {
         </div>
         <div>
           {isLogin ? (
-            <button className="border w-full px-2 py-1 border-gray-300 bg-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer font-semibold">
+            <button
+              className="border w-full px-2 py-1 border-gray-300 bg-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer font-semibold"
+              onClick={loginHandler}>
               Login
             </button>
           ) : (
-            <button className="border w-full px-2 py-1 border-gray-300 bg-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer font-semibold">
+            <button
+              className="border w-full px-2 py-1 border-gray-300 bg-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer font-semibold"
+              onClick={registerHandler}>
               Sign Up
             </button>
           )}
