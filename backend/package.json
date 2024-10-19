@@ -17,6 +17,7 @@
     "express": "^4.21.1",
     "gitignore": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "papaparse": "^5.4.1"
   }
 }

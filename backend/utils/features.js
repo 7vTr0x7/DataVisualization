@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+const Papa = require("papaparse");
 
 export const sendCookie = (user, res, message, statusCode) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
@@ -12,4 +13,14 @@ export const sendCookie = (user, res, message, statusCode) => {
       secure: process.env.NODE_ENV === "Development" ? false : true,
     })
     .json({ success: true, message, token });
+};
+
+export const getData = async () => {
+  const res = await fetch(
+    `https://docs.google.com/spreadsheets/d/1l7GstWHc69HPV0irSdvoMIyHgtufUPKsbtCiNw7IKR0/export?format=csv&gid=485741054`
+  );
+
+  const csvData = await res.text();
+  const parsedData = Papa.parse(csvData, { header: true });
+  return parsedData.data;
 };
