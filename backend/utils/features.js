@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-const Papa = require("papaparse");
+import paper from "papaparse";
 
 export const sendCookie = (user, res, message, statusCode) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
@@ -21,6 +21,6 @@ export const getData = async () => {
   );
 
   const csvData = await res.text();
-  const parsedData = Papa.parse(csvData, { header: true });
+  const parsedData = paper.parse(csvData, { header: true });
   return parsedData.data;
 };
