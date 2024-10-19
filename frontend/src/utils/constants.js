@@ -2,7 +2,9 @@ const categories = ["a", "b", "c", "d", "e", "f"];
 
 const returnFiltered = (params, data) => {
   const filteredData = data.filter((item) => {
-    const itemDate = new Date(item.Day || item.day);
+    const itemDay = item.Day || item.day;
+    const [day, month, year] = itemDay.split("/").map(Number);
+    const itemDate = new Date(year, month - 1, day);
     const age = item.Age || item.age;
     const gender = item.Gender || item.gender;
 
@@ -17,7 +19,7 @@ const returnFiltered = (params, data) => {
     return false;
   });
 
-  return filteredData;
+  return filteredData.length === 0 ? [] : filteredData;
 };
 
 export const barData = (params, data) => {

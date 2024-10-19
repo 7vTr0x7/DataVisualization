@@ -11,8 +11,8 @@ const filtersSlice = createSlice({
 
       const serializedFilters = {
         ...rest,
-        startDate: startDate ? new Date(startDate).getTime() : null,
-        endDate: endDate ? new Date(endDate).getTime() : null,
+        startDate: startDate ? new Date(startDate).toISOString() : null, // Store as ISO string
+        endDate: endDate ? new Date(endDate).toISOString() : null, // Store as ISO string
       };
 
       return {
@@ -20,7 +20,7 @@ const filtersSlice = createSlice({
         filters: serializedFilters,
       };
     },
-    resetFilters: (state, action) => {
+    resetFilters: (state) => {
       return {
         ...state,
         filters: {},

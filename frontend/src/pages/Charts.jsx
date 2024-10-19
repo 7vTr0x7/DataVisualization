@@ -39,6 +39,7 @@ const Charts = () => {
     return paramsData?.age ? paramsData : {};
   }, [paramsData]);
 
+  console.log(filters);
   const fetchChartData = async () => {
     try {
       setLoading(true); // Start loading
