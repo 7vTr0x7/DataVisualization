@@ -1,9 +1,29 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+
+  const registerHandler = async () => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/user/register`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-96 mt-10 w-auto ">
@@ -22,11 +42,11 @@ const Login = () => {
         <div className="my-3">
           <input
             className="border w-full px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
-            type="email"
+            type="password"
             required
-            value={email}
+            value={password}
             placeholder="Password"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div>
