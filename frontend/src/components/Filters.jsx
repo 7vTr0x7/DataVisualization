@@ -82,6 +82,29 @@ const Filters = ({ paramsData }) => {
     toast.success("Reset successful");
   };
 
+  const logoutHandler = async () => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/user/login`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.token) {
+        toast.success(data.message);
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div>
