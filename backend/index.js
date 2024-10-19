@@ -9,13 +9,13 @@ config({ path: "D:/DataVisualization/backend/.env" });
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser());
 
 const corsOption = {
   origin: ["http://localhost:5173", "https://charts-v1.vercel.app"],
   credentials: true,
 };
 app.use(cors(corsOption));
+app.use(cookieParser());
 
 app.use("/api/user", userRouter);
 
