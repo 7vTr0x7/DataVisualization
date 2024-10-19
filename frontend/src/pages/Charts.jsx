@@ -42,9 +42,12 @@ const Charts = () => {
   const fetchChartData = async () => {
     try {
       setLoading(true); // Start loading
-      const res = await fetch("http://localhost:4000/api/user/chart/data", {
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://charts-backend.vercel.app/api/user/chart/data",
+        {
+          credentials: "include",
+        }
+      );
 
       if (!res.ok) {
         console.log("Failed to get data");

@@ -79,9 +79,12 @@ const Filters = ({ paramsData }) => {
 
   const logoutHandler = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/user/logout`, {
-        method: "POST",
-      });
+      const res = await fetch(
+        `https://charts-backend.vercel.app/api/user/logout`,
+        {
+          method: "POST",
+        }
+      );
 
       const data = await res.json();
 

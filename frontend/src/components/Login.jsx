@@ -13,14 +13,17 @@ const Login = () => {
     e.preventDefault();
     if (email && password) {
       try {
-        const res = await fetch(`http://localhost:4000/api/user/register`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
+        const res = await fetch(
+          `https://charts-backend.vercel.app/api/user/register`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          }
+        );
 
         const data = await res.json();
 
@@ -39,14 +42,17 @@ const Login = () => {
     e.preventDefault();
     if (email && password) {
       try {
-        const res = await fetch(`http://localhost:4000/api/user/login`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
+        const res = await fetch(
+          `https://charts-backend.vercel.app/api/user/login`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          }
+        );
 
         const data = await res.json();
 
