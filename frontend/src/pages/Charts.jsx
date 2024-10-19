@@ -69,9 +69,7 @@ const Charts = () => {
   }, []);
 
   useEffect(() => {
-    if (reset) {
-      setParamsData({});
-    }
+    setParamsData({});
   }, [reset]);
 
   return (
