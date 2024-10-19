@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import dayjs from "dayjs";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
@@ -8,8 +12,8 @@ import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
 import toast, { Toaster } from "react-hot-toast";
 
 const Filters = ({ paramsData }) => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
 
@@ -24,8 +28,8 @@ const Filters = ({ paramsData }) => {
         changeFilters({
           age,
           gender,
-          startDate: startDate ? startDate.getTime() : null,
-          endDate: endDate ? endDate.getTime() : null,
+          startDate: startDate ? startDate.valueOf() : null,
+          endDate: endDate ? endDate.valueOf() : null,
         })
       );
     }
@@ -33,10 +37,8 @@ const Filters = ({ paramsData }) => {
 
   useEffect(() => {
     if (paramsData) {
-      setStartDate(
-        paramsData?.startDate ? new Date(paramsData?.startDate) : ""
-      );
-      setEndDate(paramsData?.endDate ? new Date(paramsData?.endDate) : "");
+      setStartDate(paramsData?.startDate ? dayjs(paramsData?.startDate) : null);
+      setEndDate(paramsData?.endDate ? dayjs(paramsData?.endDate) : null);
       setGender(paramsData?.gender || "");
       setAge(paramsData?.age || "");
     }
@@ -84,7 +86,6 @@ const Filters = ({ paramsData }) => {
       <div>
         <select
           className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
-          disabled={paramsData?.gender}
           value={gender}
           onChange={(e) => setGender(e.target.value)}>
           <option value="">Gender</option>
@@ -96,30 +97,27 @@ const Filters = ({ paramsData }) => {
         <select
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
-          disabled={paramsData?.age}>
+          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto">
           <option value="">Age</option>
           <option value="15-25">15-25</option>
           <option value=">25">{">25"}</option>
         </select>
       </div>
-      <div className="  w-full sm:w-auto text-center">
-        <DatePicker
-          disabled={paramsData?.startDate}
-          className="border text-black border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
-          selected={startDate}
-          onChange={(dates) => {
-            const [start, end] = dates;
-            setStartDate(start);
-            setEndDate(end);
-          }}
-          selectsRange
-          startDate={startDate}
-          endDate={endDate}
-          isClearable
-          placeholderText="Select a date range"
+      <div className="flex flex-col gap-2 sm:flex-row sm:space-x-2">
+        <input
+          type="date"
+          value={startDate ? startDate.format("YYYY-MM-DD") : ""}
+          onChange={(e) => setStartDate(dayjs(e.target.value))}
+          className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="date"
+          value={endDate ? endDate.format("YYYY-MM-DD") : ""}
+          onChange={(e) => setEndDate(dayjs(e.target.value))}
+          className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+
       <div>
         {url.includes("age") ? (
           <p

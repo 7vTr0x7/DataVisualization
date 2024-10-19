@@ -30,7 +30,6 @@ const LineChart = ({ paramsData }) => {
   const bar = useSelector((state) => state.bar.bar);
 
   const array = lineData(bar, paramsData);
-  console.log(array);
 
   const maxLine =
     array.length > 0 &&
