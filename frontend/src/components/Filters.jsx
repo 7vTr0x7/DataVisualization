@@ -86,6 +86,7 @@ const Filters = ({ paramsData }) => {
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div>
         <select
+          required
           className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
           value={gender}
           onChange={(e) => setGender(e.target.value)}>
@@ -98,6 +99,7 @@ const Filters = ({ paramsData }) => {
       </div>
       <div>
         <select
+          required
           value={age}
           onChange={(e) => setAge(e.target.value)}
           className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
@@ -110,12 +112,14 @@ const Filters = ({ paramsData }) => {
       </div>
       <div className="flex flex-col gap-2 sm:flex-row sm:space-x-2">
         <input
+          required
           type="date"
           value={startDate ? startDate.format("YYYY-MM-DD") : ""}
           onChange={(e) => setStartDate(dayjs(e.target.value))}
           className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
         />
         <input
+          required
           type="date"
           value={endDate ? endDate.format("YYYY-MM-DD") : ""}
           onChange={(e) => setEndDate(dayjs(e.target.value))}
