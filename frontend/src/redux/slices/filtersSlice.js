@@ -25,7 +25,7 @@ const filtersSlice = createSlice({
       return {
         ...state,
         filters: {},
-        reset: true,
+        reset: !state.reset,
       };
     },
   },
