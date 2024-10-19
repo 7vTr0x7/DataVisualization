@@ -4,8 +4,9 @@ import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaBars } from "react-icons/fa"; // Import the hamburger icon
+import { resetData } from "../redux/slices/dataSlice";
 
 const Filters = ({ paramsData }) => {
   const [startDate, setStartDate] = useState(null);
@@ -66,14 +67,14 @@ const Filters = ({ paramsData }) => {
   };
 
   const resetHandler = () => {
-    navigate("/");
-
     setAge("");
     setEndDate(null);
     setStartDate(null);
     setGender("");
 
     dispatch(resetFilters());
+    dispatch(resetData());
+    navigate("/");
 
     toast.success("Reset successful");
   };

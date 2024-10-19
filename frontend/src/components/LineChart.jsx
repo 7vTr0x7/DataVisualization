@@ -28,8 +28,9 @@ ChartJS.register(
 
 const LineChart = ({ paramsData }) => {
   const bar = useSelector((state) => state.bar.bar);
+  const chartData = useSelector((state) => state.data.data);
 
-  const array = lineData(bar, paramsData);
+  const array = lineData(bar, paramsData, chartData);
 
   const maxLine =
     array.length > 0 &&

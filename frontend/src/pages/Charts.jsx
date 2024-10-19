@@ -5,14 +5,17 @@ import BarChart from "../components/BarChart";
 import Filters from "../components/Filters";
 import LineChart from "../components/LineChart";
 import { useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addData } from "../redux/slices/dataSlice";
 
 Chart.register(zoomPlugin);
 
 const Charts = () => {
   const [paramsData, setParamsData] = useState({});
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true); // Loading state
 
+  const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters.filters);
 
   const age = searchParams.get("age");
@@ -36,29 +39,60 @@ const Charts = () => {
     return paramsData?.age ? paramsData : {};
   }, [paramsData]);
 
+  const fetchChartData = async () => {
+    try {
+      setLoading(true); // Start loading
+      const res = await fetch("http://localhost:4000/api/user/chart/data", {
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        console.log("Failed to get data");
+      }
+
+      const data = await res.json();
+      console.log(data);
+      if (data.data) {
+        dispatch(addData(data.data));
+      }
+      setLoading(false); // Stop loading after data is fetched
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Stop loading if error occurs
+    }
+  };
+
+  useEffect(() => {
+    fetchChartData();
+  }, []);
+
   return (
     <div className="flex justify-center mt-10 h-auto px-4">
       <div className="w-full max-w-7xl">
         <Filters
           paramsData={memoizedParamsData ? memoizedParamsData : filters}
         />
-        <div className="flex flex-col lg:flex-row lg:gap-5 gap-4 mt-5">
-          {/* Wrap each chart with a responsive div */}
-          <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
-            <BarChart
-              paramsData={
-                memoizedParamsData?.age ? memoizedParamsData : filters
-              }
-            />
+        {loading ? (
+          <div>Loading...</div> // Show loading while data is being fetched
+        ) : (
+          <div className="flex flex-col lg:flex-row lg:gap-5 gap-4 mt-5">
+            {/* Wrap each chart with a responsive div */}
+            <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
+              <BarChart
+                paramsData={
+                  memoizedParamsData?.age ? memoizedParamsData : filters
+                }
+              />
+            </div>
+            <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
+              <LineChart
+                paramsData={
+                  memoizedParamsData?.age ? memoizedParamsData : filters
+                }
+              />
+            </div>
           </div>
-          <div className="flex-1 w-full h-[400px] md:h-[300px] sm:h-[250px]">
-            <LineChart
-              paramsData={
-                memoizedParamsData?.age ? memoizedParamsData : filters
-              }
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
