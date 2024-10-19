@@ -54,7 +54,6 @@ const Charts = () => {
       }
 
       const data = await res.json();
-      console.log(data);
       if (data.data) {
         dispatch(addData(data.data));
       }
