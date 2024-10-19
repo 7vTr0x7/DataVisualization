@@ -13,8 +13,12 @@ app.use(express.json());
 const corsOption = {
   origin: ["http://localhost:5173", "https://charts-v1.vercel.app"],
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 app.use(cors(corsOption));
+
 app.use(cookieParser());
 
 app.use("/api/user", userRouter);
