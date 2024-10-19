@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import dayjs from "dayjs";
 
+import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeFilters, resetFilters } from "../redux/slices/filtersSlice";
-
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { FaBars } from "react-icons/fa"; // Import the hamburger icon
 
 const Filters = ({ paramsData }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling the menu
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const url = window.location.href;
 
   useEffect(() => {
@@ -98,78 +94,90 @@ const Filters = ({ paramsData }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <div>
-        <select
-          required
-          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}>
-          <option value="" className="hidden">
-            Gender
-          </option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <div>
-        <select
-          required
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
-          <option value="" className="hidden">
-            Age
-          </option>
-          <option value="15-25">15-25</option>
-          <option value=">25">{">25"}</option>
-        </select>
-      </div>
-      <div className="flex flex-col gap-2 sm:flex-row sm:space-x-2">
-        <input
-          required
-          type="date"
-          value={startDate ? startDate.format("YYYY-MM-DD") : ""}
-          onChange={(e) => setStartDate(dayjs(e.target.value))}
-          className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
-        />
-        <input
-          required
-          type="date"
-          value={endDate ? endDate.format("YYYY-MM-DD") : ""}
-          onChange={(e) => setEndDate(dayjs(e.target.value))}
-          className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
-        />
+    <div className="w-full">
+      <div className="sm:hidden flex justify-end mb-4">
+        {/* Hamburger Icon for Small Screens */}
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl">
+          <FaBars />
+        </button>
       </div>
 
-      <div>
-        {url.includes("age") ? (
-          <p
-            onClick={copyUrlHandler}
+      {/* Conditionally show the filters based on screen size and menu state */}
+      <div
+        className={`flex flex-col sm:flex-row gap-4 justify-center items-center ${
+          isMenuOpen ? "" : "hidden sm:flex"
+        }`}>
+        <div>
+          <select
+            required
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}>
+            <option value="" className="hidden">
+              Gender
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div>
+          <select
+            required
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
             className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
-            Copy URL
-          </p>
-        ) : (
+            <option value="" className="hidden">
+              Age
+            </option>
+            <option value="15-25">15-25</option>
+            <option value=">25">{">25"}</option>
+          </select>
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row sm:space-x-2">
+          <input
+            required
+            type="date"
+            value={startDate ? startDate.format("YYYY-MM-DD") : ""}
+            onChange={(e) => setStartDate(dayjs(e.target.value))}
+            className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
+          />
+          <input
+            required
+            type="date"
+            value={endDate ? endDate.format("YYYY-MM-DD") : ""}
+            onChange={(e) => setEndDate(dayjs(e.target.value))}
+            className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
+          />
+        </div>
+        <div>
+          {url.includes("age") ? (
+            <p
+              onClick={copyUrlHandler}
+              className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
+              Copy URL
+            </p>
+          ) : (
+            <p
+              onClick={urlGenerator}
+              className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
+              Generate URL
+            </p>
+          )}
+        </div>
+        <div>
           <p
-            onClick={urlGenerator}
-            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
-            Generate URL
+            onClick={resetHandler}
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+            Reset
           </p>
-        )}
-      </div>
-      <div>
-        <p
-          onClick={resetHandler}
-          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-          Reset
-        </p>
-      </div>
-      <div>
-        <p
-          onClick={logoutHandler}
-          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-          Logout
-        </p>
+        </div>
+        <div>
+          <p
+            onClick={logoutHandler}
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+            Logout
+          </p>
+        </div>
       </div>
 
       <Toaster />
