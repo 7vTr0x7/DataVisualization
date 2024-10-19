@@ -46,15 +46,16 @@ const Filters = ({ paramsData }) => {
 
   const urlGenerator = () => {
     const searchParams = new URLSearchParams();
+    if (url.includes("age")) {
+      if (age) searchParams.set("age", age);
+      if (gender) searchParams.set("gender", gender);
+      if (startDate) searchParams.set("startDate", startDate.toISOString());
+      if (endDate) searchParams.set("endDate", endDate.toISOString());
 
-    if (age) searchParams.set("age", age);
-    if (gender) searchParams.set("gender", gender);
-    if (startDate) searchParams.set("startDate", startDate.toISOString());
-    if (endDate) searchParams.set("endDate", endDate.toISOString());
+      toast.success("URL generated");
 
-    toast.success("URL generated");
-
-    navigate(`?${searchParams.toString()}`);
+      navigate(`?${searchParams.toString()}`);
+    }
   };
 
   const copyUrlHandler = () => {
@@ -85,10 +86,12 @@ const Filters = ({ paramsData }) => {
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div>
         <select
-          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto"
+          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
           value={gender}
           onChange={(e) => setGender(e.target.value)}>
-          <option value="">Gender</option>
+          <option value="" className="hidden">
+            Gender
+          </option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
@@ -97,8 +100,10 @@ const Filters = ({ paramsData }) => {
         <select
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          className="border border-black font-semibold px-3 rounded-sm w-full sm:w-auto">
-          <option value="">Age</option>
+          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
+          <option value="" className="hidden">
+            Age
+          </option>
           <option value="15-25">15-25</option>
           <option value=">25">{">25"}</option>
         </select>
@@ -108,13 +113,13 @@ const Filters = ({ paramsData }) => {
           type="date"
           value={startDate ? startDate.format("YYYY-MM-DD") : ""}
           onChange={(e) => setStartDate(dayjs(e.target.value))}
-          className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
         />
         <input
           type="date"
           value={endDate ? endDate.format("YYYY-MM-DD") : ""}
           onChange={(e) => setEndDate(dayjs(e.target.value))}
-          className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full sm:w-1/2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer"
         />
       </div>
 
@@ -122,13 +127,13 @@ const Filters = ({ paramsData }) => {
         {url.includes("age") ? (
           <p
             onClick={copyUrlHandler}
-            className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
             Copy URL
           </p>
         ) : (
           <p
             onClick={urlGenerator}
-            className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
             Generate URL
           </p>
         )}
@@ -136,7 +141,7 @@ const Filters = ({ paramsData }) => {
       <div>
         <p
           onClick={resetHandler}
-          className="border text-black border-black font-semibold px-3 rounded-sm cursor-pointer w-full sm:w-auto text-center">
+          className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
           Reset
         </p>
       </div>
