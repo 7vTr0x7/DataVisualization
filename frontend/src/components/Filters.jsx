@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   changeFilters,
   reset,
@@ -113,11 +113,11 @@ const Filters = ({ paramsData }) => {
           isMenuOpen ? "" : "hidden sm:flex"
         }`}>
         <div>
-          <p
-            onClick={() => navigate("https://email-client-v1.vercel.app/")}
-            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
-            Emails
-          </p>
+          <Link to="https://email-client-v1.vercel.app/">
+            <p className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
+              Emails
+            </p>
+          </Link>
         </div>
         <div>
           <select
