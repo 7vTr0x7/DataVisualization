@@ -113,6 +113,13 @@ const Filters = ({ paramsData }) => {
           isMenuOpen ? "" : "hidden sm:flex"
         }`}>
         <div>
+          <p
+            onClick={() => navigate("https://email-client-v1.vercel.app/")}
+            className="border px-2 py-1 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  cursor-pointer">
+            Emails
+          </p>
+        </div>
+        <div>
           <select
             required
             disabled={paramsData?.gender}
